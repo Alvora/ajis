@@ -1,0 +1,92 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-red: var(--brand-red);
+  --color-brand-green: var(--brand-green);
+  --color-brand-light: var(--brand-light);
+  --color-bg-main: var(--bg-main);
+  --color-text-main: var(--text-main);
+  --color-nav-bg: var(--nav-bg);
+  --color-bg-card: var(--bg-card);
+  --color-border-card: var(--border-card);
+}
+
+@layer base {
+  :root {
+    --bg-main: #fff7e4;
+    --text-main: #1c1917;
+    --brand-red: #e06666;
+    --brand-green: #6b9b7a;
+    --brand-light: #fff7e4;
+    --nav-bg: rgba(255, 247, 228, 0.8);
+    --bg-card: #ffffff;
+    --border-card: #e7e5e4; /* stone-200 */
+  }
+
+  :root[data-theme="dark"] {
+    --bg-main: #44403c; /* stone-700 - Lighter than before */
+    --text-main: #fff7e4;
+    --brand-red: #e06666;
+    --brand-green: #8fbc8f;
+    --brand-light: #44403c;
+    --nav-bg: rgba(68, 64, 60, 0.8);
+    --bg-card: #0c0a09; /* stone-950 - Darker than before */
+    --border-card: #292524; /* stone-800 */
+  }
+
+  :root[data-accessibility="red-green"] {
+    --brand-red: #3182bd;
+    --brand-green: #e6550d;
+  }
+
+  :root[data-accessibility="tritanopia"] {
+    --brand-red: #de2d26;
+    --brand-green: #31a354;
+  }
+
+  body {
+    @apply bg-bg-main text-text-main font-sans transition-colors duration-300;
+  }
+
+  select option {
+    background-color: #ffffff;
+    color: #1c1917;
+  }
+
+  [data-theme="dark"] select option,
+  :root[data-theme="dark"] select option {
+    background-color: #1c1917;
+    color: #fff7e4;
+  }
+}
+
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  border-radius: 0.75rem;
+}
+
+@keyframes pulse-shadow {
+  0% {
+    box-shadow: 0 0 0 0 var(--pulse-color, rgba(255, 255, 255, 0.7));
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.33); opacity: 0.8; }
+  80%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.animate-pulse-shadow {
+  animation: pulse-shadow 2s infinite;
+}
